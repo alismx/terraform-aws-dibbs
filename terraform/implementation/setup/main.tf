@@ -11,6 +11,15 @@ provider "aws" {
   }
 }
 
+module "github_oidc" {
+  source = "../../modules/github_oidc"
+
+  oidc_github_repo = var.oidc_github_repo
+  region           = var.region
+  owner            = var.owner
+  project          = var.project
+}
+
 resource "random_string" "setup" {
   length  = 8
   special = false
@@ -69,7 +78,6 @@ resource "local_file" "setup_env" {
     BUCKET=${aws_s3_bucket.tfstate.bucket}
     DYNAMODB_TABLE=${aws_dynamodb_table.tfstate_lock.id}
     REGION=${var.region}
-    TERRAFORM_ROLE=${aws_iam_role.github.arn}
   EOT
   filename = ".env"
 }
@@ -79,7 +87,6 @@ resource "local_file" "ecs_env" {
     BUCKET=${aws_s3_bucket.tfstate.bucket}
     DYNAMODB_TABLE=${aws_dynamodb_table.tfstate_lock.id}
     REGION=${var.region}
-    TERRAFORM_ROLE=${aws_iam_role.github.arn}
   EOT
   filename = "../ecs/.env"
 }

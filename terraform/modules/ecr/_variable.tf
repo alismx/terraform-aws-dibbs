@@ -20,3 +20,13 @@ variable "service_data" {
     }))
   }))
 }
+
+variable "owner" {
+  type        = string
+  description = "The owner of the project"
+}
+
+variable "project" {
+  type        = string
+  description = "The name of the project"
+}

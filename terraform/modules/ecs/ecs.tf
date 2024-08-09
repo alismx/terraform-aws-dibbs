@@ -107,3 +107,10 @@ resource "aws_ecs_service" "this" {
     }
   }
 }
+
+# module "ecr" {
+#   source = "../../modules/ecr"
+
+#   region       = var.region
+#   service_data = var.service_data
+# }

@@ -11,13 +11,6 @@ module "vpc" {
   single_nat_gateway          = var.single_nat_gateway
 }
 
-module "ecr" {
-  source = "../../modules/ecr"
-
-  region       = var.region
-  service_data = local.service_data
-}
-
 module "ecs" {
   source = "../../modules/ecs"
 
@@ -40,4 +33,13 @@ module "ecs" {
 
   cw_retention_in_days = var.cw_retention_in_days
   region               = var.region
+}
+
+module "ecr" {
+  source = "../../modules/ecr"
+
+  region       = var.region
+  owner        = var.owner
+  project      = var.project
+  service_data = module.ecs.service_data
 }

@@ -10,7 +10,6 @@ ENVIRONMENT="${ENVIRONMENT:-}"
 BUCKET="${BUCKET:-}"
 DYNAMODB_TABLE="${DYNAMODB_TABLE:-}"
 REGION="${REGION:-}"
-TERRAFORM_ROLE="${TERRAFORM_ROLE:-}"
 CI=false
 
 # parse command line arguments
@@ -36,11 +35,6 @@ do
         ;;
         -region|--region|-r)
         REGION="$2"
-        shift
-        shift
-        ;;
-        -terraform-role|--terraform-role)
-        TERRAFORM_ROLE="$2"
         shift
         shift
         ;;
@@ -143,7 +137,7 @@ else
 fi
 
 if [ "$CI" = false ]; then
-    terraform apply -var-file="$ENVIRONMENT.tfvars"
+    terraform destroy -var-file="$ENVIRONMENT.tfvars"
 else
     terraform apply -auto-approve -var-file="$ENVIRONMENT.tfvars"
 fi
