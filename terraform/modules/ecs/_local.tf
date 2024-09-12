@@ -9,6 +9,7 @@ locals {
   registry_auth     = data.aws_ecr_authorization_token.this.proxy_endpoint
   registry_username = data.aws_ecr_authorization_token.this.user_name
   registry_password = data.aws_ecr_authorization_token.this.password
+  create_route53_zone = var.route53_zone_name == "" ? false : true
   service_data = {
     ecr-viewer = {
       short_name     = "ecrv",
