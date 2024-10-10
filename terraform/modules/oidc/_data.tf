@@ -142,6 +142,7 @@ data "aws_iam_policy_document" "scoped_two" {
       "ec2:CreateRouteTable",
       "ec2:CreateSecurityGroup",
       "ec2:CreateSubnet",
+      "ec2:CreateVPCEndpoint",
       "ec2:DeleteNetworkAclEntry",
       "iam:PassRole",
     ]
@@ -208,6 +209,7 @@ data "aws_iam_policy_document" "request_tags_create_actions" {
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${local.project_owner_workspace}*",
       "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/${local.project_owner_workspace}*",
       "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:/${local.project_owner_workspace}:log-stream:",
+      "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:/${local.project_owner_workspace}*",
       "arn:aws:servicediscovery:${var.region}:${data.aws_caller_identity.current.account_id}:*/*",
     ]
     condition {
