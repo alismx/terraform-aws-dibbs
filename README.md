@@ -1,240 +1,118 @@
-# Table of Contents
-[1. Overview](#1-overview)\
-[2. Notices](#2-notices)
-  - [2.1 Public Domain Standard Notice](#21-public-domain-standard-notice)
-  - [2.2 License Standard Notice](#22-license-standard-notice)
-  - [2.3 Privacy Standard Notice](#23-privacy-standard-notice)
-  - [2.4 Contributing Standard Notice](#24-contributing-standard-notice)
-  - [2.5 Records Management Standard Notice](#25-records-management-standard-notice)
-  - [2.6 Additional Standard Notices](#26-additional-standard-notices)
-
-[3. Architectural Design](#3-architectural-design)\
-[4. Getting Started](#4-getting-started)
-- [Table of Contents](#table-of-contents)
-- [1. Overview](#1-overview)
-- [2. Notices](#2-notices)
-  - [2.1 Public Domain Standard Notice](#21-public-domain-standard-notice)
-  - [2.2 License Standard Notice](#22-license-standard-notice)
-  - [2.3 Privacy Standard Notice](#23-privacy-standard-notice)
-  - [2.4 Contributing Standard Notice](#24-contributing-standard-notice)
-  - [2.5 Records Management Standard Notice](#25-records-management-standard-notice)
-  - [2.6 Additional Standard Notices](#26-additional-standard-notices)
-- [3. Architectural Design](#3-architectural-design)
-- [4. Getting Started](#4-getting-started)
-  - [4.1 Requirements](#41-requirements)
-  - [4.2 Clone DIBBS-AWS Repository](#42-clone-dibbs-aws-repository)
-  - [4.3 Begin Using Terraform](#43-begin-using-terraform)
-  - [4.4 Make A New Branch](#44-make-a-new-branch)
-  - [4.5 Update Terraform Through The Command Line](#45-update-terraform-through-the-command-line)
-  - [4.6 Run Terraform Code In Your Designated Environment](#46-run-terraform-code-in-your-designated-environment)
-  - [4.7 Validate Your Terraform Changes](#47-validate-your-terraform-changes)
-  - [4.8 Review Prospective Changes](#48-review-prospective-changes)
-  - [4.9 Apply Changes](#49-apply-changes)
-  - [4.10 Update Variables](#410-update-variables)
-  
-
-# 1. Overview
-
-The Data Integration Building Blocks (DIBBs) project is an effort to help state, local, territorial, and tribal public health departments better make sense of and utilize their data. You can read more about the project on the [main DIBBs repository](https://github.com/CDCgov/phdi/blob/main/README.md).
-
-This repository is specifically to develop an AWS "starter kit" for the DIBBs project. This will enable our jurisdictional partners to build from this repository to provision their own AWS infrastructure.
-
-+ [Return to Table of Contents](#table-of-contents).
-
-# 2. Notices
-## 2.1 Public Domain Standard Notice
-This repository constitutes a work of the United States Government and is not
-subject to domestic copyright protection under 17 USC § 105. This repository is in
-the public domain within the United States, and copyright and related rights in
-the work worldwide are waived through the [CC0 1.0 Universal public domain dedication](https://creativecommons.org/publicdomain/zero/1.0/).
-All contributions to this repository will be released under the CC0 dedication. By
-submitting a pull request you are agreeing to comply with this waiver of
-copyright interest.
-
-
-+ [Return to Table of Contents](#table-of-contents).
-
-## 2.2 License Standard Notice
-The repository utilizes code licensed under the terms of the Apache Software
-License and therefore is licensed under ASL v2 or later.
-
-This source code in this repository is free: you can redistribute it and/or modify it under
-the terms of the Apache Software License version 2, or (at your option) any
-later version.
-
-This source code in this repository is distributed in the hope that it will be useful, but WITHOUT ANY
-WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-PARTICULAR PURPOSE. See the Apache Software License for more details.
-
-You should have received a copy of the Apache Software License along with this
-program. If not, see http://www.apache.org/licenses/LICENSE-2.0.html.
-
-The source code forked from other open source projects will inherit its license.
-
-
-+ [Return to Table of Contents](#table-of-contents).
-
-## 2.3 Privacy Standard Notice
-This repository contains only non-sensitive, publicly available data and
-information. All material and community participation is covered by the
-[Disclaimer](DISCLAIMER.md)
-and [Code of Conduct](code-of-conduct.md).
-For more information about CDC's privacy policy, please visit [http://www.cdc.gov/other/privacy.html](https://www.cdc.gov/other/privacy.html).
-
-
-+ [Return to Table of Contents](#table-of-contents).
-
-## 2.4 Contributing Standard Notice
-Anyone is encouraged to contribute to the repository by [forking](https://help.github.com/articles/fork-a-repo)
-and submitting a pull request. (If you are new to GitHub, you might start with a [basic tutorial](https://help.github.com/articles/set-up-git).) By contributing to this project, you grant a world-wide, royalty-free, perpetual, irrevocable, non-exclusive, transferable license to all users under the terms of the [Apache Software License v2](http://www.apache.org/licenses/LICENSE-2.0.html) or later.
-
-All comments, messages, pull requests, and other submissions received through
-CDC including this GitHub page may be subject to applicable federal law, including but not limited to the Federal Records Act, and may be archived. Learn more at [http://www.cdc.gov/other/privacy.html](http://www.cdc.gov/other/privacy.html).
-
-
-+ [Return to Table of Contents](#table-of-contents).
-
-## 2.5 Records Management Standard Notice
-This repository is not a source of government records, but is a copy to increase collaboration and collaborative potential. All government records will be published through the [CDC web site](http://www.cdc.gov).
-
-+ [Return to Table of Contents](#table-of-contents).
-
-## 2.6 Additional Standard Notices
-Please refer to [CDC's Template Repository](https://github.com/CDCgov/template) for more information about [contributing to this repository](https://github.com/CDCgov/template/blob/main/CONTRIBUTING.md), [public domain notices and disclaimers](https://github.com/CDCgov/template/blob/main/DISCLAIMER.md), and [code of conduct](https://github.com/CDCgov/template/blob/main/code-of-conduct.md).
-
-
-+ [Return to Table of Contents](#table-of-contents).
-
-# 3. Architectural Design
-The current architectural design for dibbs-aws is as follows:
-
-![Current DIBBS Architecture as of 6-24-2024](https://github.com/CDCgov/dibbs-aws/assets/29112142/7d43d3c1-5d61-41b8-a1c3-bb4884073825)
-
-+ [Return to Table of Contents](#table-of-contents).
-
-
-# 4. Getting Started
-This section will assist engineers with executing Infrastructure as Code (IaC) found in the _dibbs-aws_ repository utilizing Terraform.  
-
-[Return to Table of Contents](#table-of-contents).
-
-## 4.1 Requirements
-Engineers will need following tools installed on their local machine:
-* Terraform version 1.0.0+  [_See_ Hashicorp installation Guide](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
-* AWS CLI version 2+ [_See_ AWS CLI Installation Guide](https://docs.aws.amazon.com/cli/v1/userguide/cli-chap-install.html)
-* AWS Profile Access \
--- <u><em><strong>Note</u></em></strong>: Engineers *must* have access and permissions to create AWS resources
-
-[Return to Table of Contents](#table-of-contents).
-
-## 4.2 Clone DIBBS-AWS Repository
-
-<em><strong>4.2.1.</em></strong> Create a directory to store the repository on your local machine
-- Mac OS users: `mkdir workspace`
-- Windows users: `md workspace`
-
-<em><strong>4.2.2.</em></strong> Clone the dibbs-aws repository (<u>use one of the following commands</u>:)\
-&nbsp;&nbsp;&nbsp;&nbsp;`git clone git@github.com:CDCgov/dibbs-cloud.git` <br />  &nbsp;&nbsp;&nbsp;&nbsp;`git clone https://github.com/CDCgov/dibbs-cloud.git`
-
-[Return to Table of Contents](#table-of-contents).
-
-## 4.3 Begin Using Terraform
-
-<em><strong>4.3.1.</em></strong> Navigate to terraform/implementation.\
-&ensp; Initialize your local terraform code. `terraform init`\
-<em><strong>4.3.2.</em></strong> Developing in a terraform workspace.\
-&ensp; Check the terraform workspaces. `terraform workspace list`\
-&ensp; <u><em><strong>Note</u></em></strong>: If you only have a default terraform workspace, you can create a terraform workspace to develop in.  _Skip to "Create a terraform workspace to develop in," below_.
-- <u>Select the terraform workspace to develop in</u>.\
- &ensp; `terraform workspace select {selectEnvironmentName}`\
- &ensp; For example, `terraform workspace select dev`.
-- <u>Create a terraform workspace to develop in</u>.\
-&ensp; `terraform workspace new {newEnvironmentName}`.
-&ensp; For example, `terraform workspace new dev`.
-
-[Return to Table of Contents](#table-of-contents).
-
-## 4.4 Make A New Branch
-Make a new branch to store any of your amendments to ensure you keep a clean main (or master) branch clear from unapproved revisions.
-
-<em><strong>4.4.1.</em></strong> Navigate to the `dibbs-aws` repository on your local machine.\
-&ensp; `cd /workspace/dibbs-aws`\
-<em><strong>4.4.2.</em></strong> Make a new branch.\
-&ensp; For example, `git checkout -b setup-dibbs-aws-backend-and-services`.
-
-[Return to Table of Contents](#table-of-contents).
-
-## 4.5 Update Terraform Through The Command Line
-
-This section will go over some of the sections you will need to amend or change in your local terraform branch.
-
-<em><strong>4.5.1. Update And Setup Your AWS Backend</em></strong>
-* In your terminal, navigate to the _/terraform/setup_ folder (`cd /terraform/setup`).  
-* Run `./setup.sh`.
-
-&nbsp;&nbsp;&nbsp;&nbsp;<u><em><strong>Note</em></strong></u>: You will be prompted to set your variable values (i.e. *Region*, *Owner*, *Project*, etc.).  For example, the default value for *Owner* is `Skylight`. You can change this value to one that represents your organization or department.  _The Owner name <u>must</u> be <u>less than</u> 13 characters_.
-
-The setup.sh scripts will assist you with creating the terraform state and tfvars files, as well as check to ensure the necessary arguments or variables were created.  See [setup.sh](https://github.com/CDCgov/dibbs-aws/blob/main/terraform/implementation/setup/setup.sh) file.  Also see [Inputs](https://github.com/CDCgov/dibbs-aws/blob/main/terraform/implementation/setup/README.md#inputs).
-
-The setup.sh script will create the following files:
-
-- _.tfvars_
-- _.env_ (will need to be created manually if prompted)
-- _terraform.state_
-
-
-<em><strong> 4.5.2. Check What Files Changed</em></strong>
-* Run `git status` to see what changes have changed.
-
-<em><strong> 4.5.3. Save Changes</em></strong>
-* Save and commit changes to your working branch.
-
-[Return to Table of Contents](#table-of-contents).
-
-## 4.6 Run Terraform Code In Your Designated Environment
-<em><strong>4.6.1. Run ECS Module Locally</em></strong>
-* To run your ECS Module Changes in your local terminal, navigate to _terraform/implementation/ecs/_ and run the following command: `cd /terraform/implementation`.
-* In your terminal run the deploy script for your designated environment `./deploy.sh -e {insertEnvironmentName}`.\
-&nbsp;&nbsp;&nbsp;&nbsp;<u><em><strong>Note</em></strong></u>: The _-e_ tag stands for environment and you can specify `dev`, `stage`, `prod` 
-&nbsp;&nbsp;&nbsp;&nbsp;or whatever environment your team desires.
-
-[Return to Table of Contents](#table-of-contents).
-
-## 4.7 Validate Your Terraform Changes
-
-<em><strong>4.7.1. Validate Changes</em></strong>
-* Run `terraform validate` to ensure the new configurations are valid.
-* If you receive a `success`, then move to 4.8.
-
-[Return to Table of Contents](#table-of-contents).
-
-## 4.8 Review Prospective Changes
-<em><strong>4.8.1. Run Terraform Plan</em></strong>
-* Run `terraform plan` to see what resources will be created with the amendments you created in section 4.5.
-* Resolve any conflicts that may arise.  _For example_, target group names can only be 13 characters long.  So, if you receive an error for the target group name above the limit, you may need to revise the target group name to satisfy this requirement.  Once you have made the necessary changes, run `terraform validate` then `terraform plan` again.
-* Review the plan and ensure things look correct before moving to 4.9.  
-
-[Return to Table of Contents](#table-of-contents).
-
-## 4.9 Apply Changes
-<em><strong>4.9.1. Run Terraform Apply</em></strong>
-* Run `terraform apply` to officially create the necessary resources using Terraform.
-* You will first receive a plan.  Review the plan to ensure it is consistent to the changes you would like to make.  
-* If the plan is correct, type `yes` to apply your terraform changes.
-
-[Return to Table of Contents](#table-of-contents).
-
-## 4.10 Update Variables
-<em><strong>4.10.1. Update Other Default Variables</em></strong>
-* Navigate to the _defaults.tfvars_ file `cd terraform/implementation/ecs/default.tfvars`.
-* In this _defaults.tfvars_ file, you can update and override any other default values.
-
-<em><strong>4.10.2. Test and Validate Your Changes</em></strong>
-* Save your changes.
-* Run `terraform init`.
-* Validate your changes `terraform validate`.
-* If no errors, run `terraform plan` to see what changes will result.
-* Then run `terraform apply`.  Fix any issues that may result until your apply is successful.
-* Save, commit and push your changes to your github repository for your team to review.
-
-[Return to Table of Contents](#table-of-contents).
+<!-- BEGIN_TF_DOCS -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_dockerless"></a> [dockerless](#requirement\_dockerless) | 0.1.1 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+| <a name="provider_dockerless"></a> [dockerless](#provider\_dockerless) | 0.1.1 |
+| <a name="provider_null"></a> [null](#provider\_null) | n/a |
+| <a name="provider_random"></a> [random](#provider\_random) | n/a |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [aws_alb.ecs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/alb) | resource |
+| [aws_alb_listener.http](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/alb_listener) | resource |
+| [aws_alb_listener_rule.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/alb_listener_rule) | resource |
+| [aws_alb_target_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/alb_target_group) | resource |
+| [aws_appmesh_mesh.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/appmesh_mesh) | resource |
+| [aws_appmesh_virtual_node.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/appmesh_virtual_node) | resource |
+| [aws_cloudwatch_log_group.ecs_cloudwatch_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
+| [aws_ecr_repository.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecr_repository) | resource |
+| [aws_ecs_cluster.dibbs_app_cluster](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_cluster) | resource |
+| [aws_ecs_service.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_service) | resource |
+| [aws_ecs_task_definition.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_task_definition) | resource |
+| [aws_flow_log.ecs_flow_log](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/flow_log) | resource |
+| [aws_iam_policy.s3_bucket_ecr_viewer](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_role.ecs_task](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role.ecs_task_execution](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role.s3_role_for_ecr_viewer](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_s3_bucket.ecr_viewer](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
+| [aws_s3_bucket_public_access_block.ecr_viewer](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block) | resource |
+| [aws_s3_bucket_server_side_encryption_configuration.ecr_viewer](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_server_side_encryption_configuration) | resource |
+| [aws_s3_bucket_versioning.ecr_viewer](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_versioning) | resource |
+| [aws_security_group.alb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
+| [aws_security_group.ecs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
+| [aws_security_group_rule.alb_egress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_security_group_rule.alb_http_ingress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_security_group_rule.alb_https_ingress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_security_group_rule.ecs_alb_ingress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_security_group_rule.ecs_all_egress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_security_group_rule.ecs_ecs_ingress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_service_discovery_private_dns_namespace.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/service_discovery_private_dns_namespace) | resource |
+| [aws_vpc_endpoint.endpoints](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_endpoint) | resource |
+| [aws_vpc_endpoint.s3](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_endpoint) | resource |
+| [dockerless_remote_image.dibbs](https://registry.terraform.io/providers/nullstone-io/dockerless/0.1.1/docs/resources/remote_image) | resource |
+| [null_resource.target_groups](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
+| [random_string.s3_viewer](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string) | resource |
+| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
+| [aws_ecr_authorization_token.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ecr_authorization_token) | data source |
+| [aws_iam_policy.amazon_ec2_container_service_for_ec2_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy) | data source |
+| [aws_iam_policy.ecs_task_execution](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy) | data source |
+| [aws_iam_policy_document.assume_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.ecr_viewer_s3](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_route_table.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route_table) | data source |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_appmesh_name"></a> [appmesh\_name](#input\_appmesh\_name) | Name of the AWS App Mesh | `string` | `""` | no |
+| <a name="input_cloudmap_namespace_name"></a> [cloudmap\_namespace\_name](#input\_cloudmap\_namespace\_name) | Name of the AWS Cloud Map namespace | `string` | `""` | no |
+| <a name="input_cloudmap_service_name"></a> [cloudmap\_service\_name](#input\_cloudmap\_service\_name) | Name of the AWS Cloud Map service | `string` | `""` | no |
+| <a name="input_cw_retention_in_days"></a> [cw\_retention\_in\_days](#input\_cw\_retention\_in\_days) | Retention period in days for CloudWatch logs | `number` | `30` | no |
+| <a name="input_disable_ecr"></a> [disable\_ecr](#input\_disable\_ecr) | Flag to disable the aws ecr service for docker image storage, defaults to false | `bool` | `false` | no |
+| <a name="input_ecr_viewer_app_env"></a> [ecr\_viewer\_app\_env](#input\_ecr\_viewer\_app\_env) | The current environment that is running. This may modify behavior of auth between dev and prod. | `string` | `"prod"` | no |
+| <a name="input_ecr_viewer_auth_pub_key"></a> [ecr\_viewer\_auth\_pub\_key](#input\_ecr\_viewer\_auth\_pub\_key) | The public key used to validate the incoming authenication for the eCR Viewer. | `string` | `"-----BEGIN PUBLIC KEY-----\nMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAqjrH9PprQCB5dX15zYfd\nS6K2ezNi/ZOu8vKEhQuLqwHACy1iUt1Yyp2PZLIV7FVDgBHMMVWPVx3GJ2wEyaJw\nMHkv6XNpUpWLhbs0V1T7o/OZfEIqcNua07OEoBxX9vhKIHtaksWdoMyKRXQJz0js\noWpawfOWxETnLqGvybT4yvY2RJhquTXLcLu90L4LdvIkADIZshaOtAU/OwI5ATcb\nfE3ip15E6jIoUm7FAtfRiuncpI5l/LJPP6fvwf8QCbbUJBZklLqcUuf4qe/L/nIq\npIONb8KZFWPhnGeRZ9bwIcqYWt3LAAshQLSGEYl2PGXaqbkUD2XLETSKDjisxd0g\n9j8bIMPgBKi+dBYcmBZnR7DxJe+vEDDw8prHG/+HRy5fim/BcibTKnIl8PR5yqHa\nmWQo7N+xXhILdD9e33KLRgbg97+erHqvHlNMdwDhAfrBT+W6GCdPwp3cePPsbhsc\noGSHOUDhzyAujr0J8h5WmZDGUNWjGzWqubNZD8dBXB8x+9dDoWhfM82nw0pvAeKf\nwJodvn3Qo8/S5hxJ6HyGkUTANKN8IxWh/6R5biET5BuztZP6jfPEaOAnt6sq+C38\nhR9rUr59dP2BTlcJ19ZXobLwuJEa81S5BrcbDwYNOAzC8jl2EV1i4bQIwJJaY27X\nIynom6unaheZpS4DFIh2w9UCAwEAAQ==\n-----END PUBLIC KEY-----\n"` | no |
+| <a name="input_ecr_viewer_basepath"></a> [ecr\_viewer\_basepath](#input\_ecr\_viewer\_basepath) | The basepath for the ecr-viewer | `string` | `"/ecr-viewer"` | no |
+| <a name="input_ecs_alb_name"></a> [ecs\_alb\_name](#input\_ecs\_alb\_name) | Name of the Application Load Balancer (ALB) | `string` | `""` | no |
+| <a name="input_ecs_alb_sg"></a> [ecs\_alb\_sg](#input\_ecs\_alb\_sg) | Name of the ECS ALB Security Group | `string` | `""` | no |
+| <a name="input_ecs_alb_tg_name"></a> [ecs\_alb\_tg\_name](#input\_ecs\_alb\_tg\_name) | Name of the ALB Target Group | `string` | `""` | no |
+| <a name="input_ecs_cloudwatch_group"></a> [ecs\_cloudwatch\_group](#input\_ecs\_cloudwatch\_group) | Name of the AWS CloudWatch Log Group for ECS | `string` | `""` | no |
+| <a name="input_ecs_cluster_name"></a> [ecs\_cluster\_name](#input\_ecs\_cluster\_name) | Name of the ECS Cluster | `string` | `""` | no |
+| <a name="input_ecs_task_execution_role_name"></a> [ecs\_task\_execution\_role\_name](#input\_ecs\_task\_execution\_role\_name) | Name of the ECS Task Execution Role | `string` | `""` | no |
+| <a name="input_ecs_task_role_name"></a> [ecs\_task\_role\_name](#input\_ecs\_task\_role\_name) | Name of the ECS Task Role | `string` | `""` | no |
+| <a name="input_internal"></a> [internal](#input\_internal) | Flag to determine if the several AWS resources are public (intended for external access, public internet) or private (only intended to be accessed within your AWS VPC or avaiable with other means, a transit gateway for example). | `bool` | `true` | no |
+| <a name="input_non_integrated_viewer"></a> [non\_integrated\_viewer](#input\_non\_integrated\_viewer) | A flag to determine if the viewer is the non-integrated version | `string` | `"false"` | no |
+| <a name="input_owner"></a> [owner](#input\_owner) | Owner of the resources | `string` | `"CDC"` | no |
+| <a name="input_phdi_version"></a> [phdi\_version](#input\_phdi\_version) | Version of the PHDI application | `string` | `"v1.6.9"` | no |
+| <a name="input_private_subnet_ids"></a> [private\_subnet\_ids](#input\_private\_subnet\_ids) | List of private subnet IDs | `list(string)` | n/a | yes |
+| <a name="input_project"></a> [project](#input\_project) | The project name | `string` | `"dibbs"` | no |
+| <a name="input_public_subnet_ids"></a> [public\_subnet\_ids](#input\_public\_subnet\_ids) | List of public subnet IDs | `list(string)` | n/a | yes |
+| <a name="input_region"></a> [region](#input\_region) | The AWS region where resources are created | `string` | n/a | yes |
+| <a name="input_s3_viewer_bucket_name"></a> [s3\_viewer\_bucket\_name](#input\_s3\_viewer\_bucket\_name) | Name of the S3 bucket for the viewer | `string` | `""` | no |
+| <a name="input_s3_viewer_bucket_role_name"></a> [s3\_viewer\_bucket\_role\_name](#input\_s3\_viewer\_bucket\_role\_name) | Name of the IAM role for the ecr-viewer bucket | `string` | `""` | no |
+| <a name="input_service_data"></a> [service\_data](#input\_service\_data) | Data for the DIBBS services | <pre>map(object({<br/>    short_name     = string<br/>    fargate_cpu    = number<br/>    fargate_memory = number<br/>    app_count      = number<br/>    app_image      = string<br/>    app_version    = string<br/>    container_port = number<br/>    host_port      = number<br/>    public         = bool<br/>    registry_url   = string<br/>    env_vars = list(object({<br/>      name  = string<br/>      value = string<br/>    }))<br/>  }))</pre> | `{}` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | Tags to apply to resources | `map(string)` | `{}` | no |
+| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | ID of the VPC | `string` | n/a | yes |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_alb_arn"></a> [alb\_arn](#output\_alb\_arn) | n/a |
+| <a name="output_alb_listener_arn"></a> [alb\_listener\_arn](#output\_alb\_listener\_arn) | n/a |
+| <a name="output_alb_listener_rules_arns"></a> [alb\_listener\_rules\_arns](#output\_alb\_listener\_rules\_arns) | n/a |
+| <a name="output_alb_security_group_arn"></a> [alb\_security\_group\_arn](#output\_alb\_security\_group\_arn) | n/a |
+| <a name="output_alb_target_groups_arns"></a> [alb\_target\_groups\_arns](#output\_alb\_target\_groups\_arns) | n/a |
+| <a name="output_ecs_cluster_arn"></a> [ecs\_cluster\_arn](#output\_ecs\_cluster\_arn) | n/a |
+| <a name="output_ecs_security_group_arn"></a> [ecs\_security\_group\_arn](#output\_ecs\_security\_group\_arn) | n/a |
+| <a name="output_ecs_task_definitions_arns"></a> [ecs\_task\_definitions\_arns](#output\_ecs\_task\_definitions\_arns) | n/a |
+| <a name="output_ecs_task_execution_role_arn"></a> [ecs\_task\_execution\_role\_arn](#output\_ecs\_task\_execution\_role\_arn) | n/a |
+| <a name="output_ecs_task_role_arn"></a> [ecs\_task\_role\_arn](#output\_ecs\_task\_role\_arn) | n/a |
+| <a name="output_s3_bucket_arn"></a> [s3\_bucket\_arn](#output\_s3\_bucket\_arn) | The ARN of the S3 bucket |
+| <a name="output_s3_bucket_ecr_viewer_policy_arn"></a> [s3\_bucket\_ecr\_viewer\_policy\_arn](#output\_s3\_bucket\_ecr\_viewer\_policy\_arn) | n/a |
+| <a name="output_s3_role_for_ecr_viewer_arn"></a> [s3\_role\_for\_ecr\_viewer\_arn](#output\_s3\_role\_for\_ecr\_viewer\_arn) | n/a |
+| <a name="output_service_data"></a> [service\_data](#output\_service\_data) | n/a |
+<!-- END_TF_DOCS -->
